@@ -42,7 +42,7 @@
 
     <div class="row">
         <div class="col-7">
-        Showing {{ $users->firstItem() }} - {{ $users->lastItem() }} of {{ $users->total() }}
+            {{__('Wyświetlono ')}} {{ $users->firstItem() }} - {{ $users->lastItem() }} {{__('z')}} {{ $users->total() }} {{__('użytkowników')}}
         </div>
 
         <div class="col-5">

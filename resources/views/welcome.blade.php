@@ -34,7 +34,7 @@
 
                     <div class="row">
                         <div class="col-7">
-                            Showing {{ $products->firstItem() }} - {{ $products->lastItem() }} of {{ $products->total() }}
+                            {{__('Wyświetlono ')}} {{ $products->firstItem() }} - {{ $products->lastItem() }} {{__('z')}} {{ $products->total() }} {{__('produktów')}}
                         </div>
 
                         <div class="col-5">

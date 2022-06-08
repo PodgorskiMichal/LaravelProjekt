@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-
+use App\Models\ProductCategory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Mockery\Exception;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,30 +19,36 @@ class UserController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        return view('users.index', [
-            'users' => User::paginate(10)
+        return view('categories.index',[
+        'categories' => ProductCategory::paginate(6)
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return view
      */
-    public function create()
+    public function create(): view
     {
-        //
+        return view('categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255|unique:App\Models\ProductCategory'
+        ]);
+
+        $category = new ProductCategory($validated);
+        $category->save();
+        return redirect(route('categories.index'));
     }
 
     /**
@@ -84,13 +88,13 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User $user
+     * @param  ProductCategory $category
      * @return JsonResponse
      */
-    public function destroy(User $user): JsonResponse
+    public function destroy(ProductCategory $category): JsonResponse
     {
         try {
-           $user -> delete();
+            $category -> delete();
             return response()->json([
                 'status' => 'success'
             ]);

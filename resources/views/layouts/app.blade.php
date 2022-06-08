@@ -48,7 +48,14 @@
 
                             <li class="nav-item active">
                                 <a class="nav-link" href="{{route('products.index')}}">
-                                    {{ __('Produkty') }}
+                                    {{ __('Lista produktów') }}
+                                </a>
+                            </li>
+
+
+                            <li class="nav-item active end">
+                                <a class="nav-link" href="{{route('categories.index')}}">
+                                    {{ __('Lista kategorii') }}
                                 </a>
                             </li>
                         </ul>
@@ -62,13 +69,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Zaloguj się') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Załóż konto') }}</a>
                                 </li>
                             @endif
                         @else
@@ -86,7 +93,7 @@
                                             <a class="dropdown-item " href="{{ route('logout') }}"
                                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
+                                                {{ __('Wyloguj się') }}
                                             </a>
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

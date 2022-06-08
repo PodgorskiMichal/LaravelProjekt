@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HellowWorldController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -29,6 +30,11 @@ Route::get('/products/{product}', [ProductController::class, 'show'])->name('pro
 Route::get('/products/edit/{product}', [ProductController::class, 'edit'])->name('products.edit')->middleware('auth');
 Route::post('/products/{product}', [ProductController::class, 'update'])->name('products.update')->middleware('auth');
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('auth');
+
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index')->middleware('auth');
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create')->middleware('auth');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store')->middleware('auth');
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy')->middleware('auth');
 
 Route::get('/users/list', [UserController::class, 'index'])->middleware('auth');
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('auth');

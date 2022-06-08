@@ -25,6 +25,7 @@
                 <th scope="col">Opis</th>
                 <th scope="col">Ilość</th>
                 <th scope="col">Cena</th>
+                <th scope="col">Kategoria</th>
                 <th scope="col">Akcje</th>
             </tr>
             </thead>
@@ -36,6 +37,7 @@
                         <td>{{$product->description}}</td>
                         <td>{{$product->amount}}</td>
                         <td>{{$product->price}}</td>
+                        <td>@if($product->hasCategory()){{ $product->category->name }}@endif</td>
                         <td>
 
                             <a href="{{route('products.show',  $product->id)}}">
@@ -57,7 +59,7 @@
 
     <div class="row">
         <div class="col-7">
-        Showing {{ $products->firstItem() }} - {{ $products->lastItem() }} of {{ $products->total() }}
+            {{__('Wyświetlono ')}} {{ $products->firstItem() }} - {{ $products->lastItem() }} {{__('z')}} {{ $products->total() }} {{__('produktów')}}
         </div>
 
         <div class="col-5">
