@@ -32,7 +32,7 @@
                             <th class="col-md-1" scope="row">{{$category->id}}</th>
                             <td>{{$category->name}}</td>
                             <td class="col-md-1">
-                                <button class="btn btn-danger btn-sm delete" data-id="{{ $category->id }}">
+                                <button class="btn btn-danger btn-sm deleteCategory" data-id="{{ $category->id }}">
                                     X
                                 </button>
                             </td>
@@ -63,5 +63,5 @@
 @endsection
 
 @section('js-files')
-    <script src="{{ asset('js/delete.js') }}"></script>
+    <script src="{{ asset('js/deleteCategory.js') }}"></script>
 @endsection
