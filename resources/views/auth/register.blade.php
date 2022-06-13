@@ -25,7 +25,7 @@
                                         </div>
 
                                         <div class="form-group mb-3">
-                                            <input id="name" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" placeholder="{{ __('Nazwisko') }}" value="{{ old('surname') }}" required autocomplete="surname" autofocus>
+                                            <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" placeholder="{{ __('Nazwisko') }}" value="{{ old('surname') }}" required autocomplete="surname" autofocus>
 
                                             @error('surname')
                                                 <span class="invalid-feedback" role="alert">

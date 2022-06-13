@@ -12,12 +12,12 @@
                     <div class="row" id="products-wrapper">
                         @foreach($products as $product)
                             <div class="col-6 col-md-6 col-lg-4 mb-3">
-                                <div class="card h-100 border-0">
+                                <div class="card h-100 border-1">
                                     <div class="card-img-top">
                                         @if(!is_null($product->image_path))
-                                            <img src="{{ asset('storage/' . $product->image_path) }}" class="img-fluid mx-auto d-block" alt="Zdjęcie produktu">
+                                            <img style="height: 250px" src="{{ asset('storage/' . $product->image_path) }}" class="img-fluid mx-auto d-block" alt="Zdjęcie produktu">
                                         @else
-                                            <img src="{{ $defaultImage }}" class="img-fluid mx-auto d-block" alt="Zdjęcie produktu">
+                                            <img style="height: 250px" src="{{ $defaultImage }}" class="img-fluid mx-auto d-block" alt="Zdjęcie produktu">
                                         @endif
                                     </div>
                                     <div class="card-body text-center">
@@ -29,24 +29,16 @@
                                         <h5 class="card-price small">
                                             <i>PLN {{ $product->price }}</i>
                                         </h5>
+
+                                        <button class="btn btn-outline-dark addToCartButton" data-id="{{ $product->id }}" @guest disabled @endguest>
+                                            <i class="fa-solid fa-cart-plus"></i></i> Dodaj do koszyka
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-                            <div class="row sorting mb-5 mt-5">
-                                <div class="col-12">
-                                    <div  id="pagination" class="btn-group float-md-end ml-3 paginationClass">
-                                        {{ $products->links() }}
-                                    </div>
-                                    <div class="btn-group float-md-start ml-3">
-                                        {{__('Wyświetlono ')}} {{ $products->firstItem() }} - {{ $products->lastItem() }} {{__('z')}} {{ $products->total() }} {{__('produktów')}}
-                                    </div>
-                                </div>
-                            </div>
+
                     </div>
-
-
-
                 </div>
             </div>
 
@@ -65,15 +57,15 @@
                 @endforeach
 
                 <div class="divider mt-5 mb-5 border-bottom border-secondary"></div>
-                <h6 class="text-uppercase mt-5 mb-3 font-weight-bold">Cena</h6>
+                <h6 class="text-uppercase mt-5 mb-3 font-weight-bold"><i class="fa-light fa-dollar-sign"></i> Cena</h6>
                 <div class="price-filter-control">
                     <input type="number" class="form-control w-50 pull-left mb-2" name="filter[price_min]" placeholder="50" id="price-min-control">
                     <input type="number" class="form-control w-50 pull-right" name="filter[price_max]" placeholder="150" id="price-max-control">
                 </div>
                 <input id="ex2" type="text" class="slider " value="50,150" data-slider-min="10" data-slider-max="200" data-slider-step="5" data-slider-value="[50,150]" data-value="50,150" style="display: none;">
                 <div class="divider mt-5 mb-5 border-bottom border-secondary"></div>
-                <a href="#" class="btn btn-lg btn-block btn-primary mt-5 w-75" id="filter">ZASTOSUJ FILTRY</a>
-                <a href="{{ url('/') }}" class="btn btn-lg btn-block btn-primary mt-3 w-75">COFNIJ FILTRY</a>
+                <a href="#" class="btn btn-lg btn-block btn-primary mt-5 w-100" id="filter"> <i class="fas fa-filter"></i> ZASTOSUJ FILTRY</a>
+                <a href="{{ url('/') }}" class="btn btn-lg btn-block btn-primary mt-3 w-100"> <i class="fa-solid fa-rotate-left"></i> COFNIJ FILTRY</a>
             </form>
 
         </div>
@@ -83,6 +75,9 @@
 @section('javascript')
     const storagePath = '{{ asset('storage') }}/';
     const defaultImage = '{{ $defaultImage }}';
+    const addToCart = '{{ url('cart') }}/';
+    const goToCart = '{{ url('cart') }}';
+    const isGuest = '{{ $isGuest }}';
 @endsection
 
 @section('js-files')

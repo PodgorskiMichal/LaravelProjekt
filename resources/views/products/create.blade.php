@@ -8,7 +8,7 @@
                     <div  class="padding container d-flex justify-content-center">
                         <div class="col-md-10 col-md-offset-1">
 
-                            <h2 class="text-center m-4"> {{ __('Dodawanie produktu') }} </h2>
+                            <h2 class="text-center m-4">  {{ __('Dodawanie produktu') }} </h2>
                             <hr>
 
 
@@ -16,7 +16,7 @@
                         <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                             @csrf
 
-                            <div class="form-group row">
+                            <div class="row mb-3">
                                 <label for="name" class="col-md-4 col-form-label text-md-end">{{__('Nazwa')}}</label>
 
                                 <div class="col-md-6">
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="row mb-3">
                                 <label for="description" class="col-md-4 col-form-label text-md-end">{{__('Opis')}}</label>
 
                                 <div class="col-md-6">
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="row mb-3">
                                 <label for="amount" class="col-md-4 col-form-label text-md-end">{{__('Ilość')}}</label>
 
                                 <div class="col-md-6">
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="row mb-3">
                                 <label for="price" class="col-md-4 col-form-label text-md-end">{{__('Cena')}}</label>
 
                                 <div class="col-md-6">
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="row mb-3">
                                 <label for="category" class="col-md-4 col-form-label text-md-end">{{ __('Kategoria') }}</label>
 
                                 <div class="col-md-6">
@@ -91,12 +91,11 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="row mb-3">
                                 <label for="image" class="col-md-4 col-form-label text-md-end">{{__('Zdjęcie')}}</label>
 
                                 <div class="col-md-6">
                                     <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image">
-
                                     @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -108,7 +107,7 @@
                             <div class="row m-5">
                                 <div class="form-group text-center">
                                     <button type="submit" class="btn btn-lg btn-outline-dark">
-                                        {{__('Zapisz')}}
+                                        <i class="fa-solid fa-floppy-disk"></i> {{__('Zapisz')}}
                                     </button>
                                 </div>
                             </div>

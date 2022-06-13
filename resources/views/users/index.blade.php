@@ -4,11 +4,20 @@
     <div class="container">
 
         <div class="row">
-
-            <div class="col-6">
-                <h1> Lista użytkowników </h1>
+            <div class="col-12">
+                @if(session('status'))
+                    <div class="alert alert-success">
+                       <button class="btn-close float-end" data-bs-dismiss="alert" aria-hidden="true"></button>
+                        {{ session('status') }}
+                    </div>
+                @endif
             </div>
+        </div>
 
+        <div class="row">
+            <div class="col-6">
+                <h1> <i class="fas fa-users"></i>  Lista użytkowników </h1>
+            </div>
         </div>
 
         <table class="table table-striped table-hover">
@@ -19,6 +28,7 @@
             <th scope="col">Nazwisko</th>
             <th scope="col">Telefon</th>
             <th scope="col">Email</th>
+            <th scope="col">Adres</th>
             <th scope="col">Akcje</th>
         </tr>
         </thead>
@@ -31,8 +41,13 @@
                     <td>{{$user->phone_number}}</td>
                     <td>{{$user->email}}</td>
                     <td>
+                        <a href="{{route('users.show',  $user->id)}}">
+                            <button class="btn btn-primary btn-sm"><i class="fa-regular fa-eye"></i></button>
+                        </a>
+                    </td>
+                    <td>
                         <button class="btn btn-danger btn-sm delete" data-id="{{ $user->id }}">
-                            X
+                            <i class="far regular fa-trash-can"></i>
                         </button>
                     </td>
                 </tr>

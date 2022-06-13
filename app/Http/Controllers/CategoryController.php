@@ -6,6 +6,7 @@ use App\Models\ProductCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -48,7 +49,7 @@ class CategoryController extends Controller
 
         $category = new ProductCategory($validated);
         $category->save();
-        return redirect(route('categories.index'));
+        return redirect(route('categories.index'))->with('status', 'Kategoria dodana do bazy!');
     }
 
     /**
@@ -95,6 +96,7 @@ class CategoryController extends Controller
     {
         try {
             $category -> delete();
+            Session::flash('status', 'Kategoria została usunięta z bazy!');
             return response()->json([
                 'status' => 'success'
             ]);

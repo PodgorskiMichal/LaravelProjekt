@@ -4,14 +4,23 @@
     <div class="container">
 
         <div class="row">
-
+            <div class="col-12">
+                @if(session('status'))
+                    <div class="alert alert-success">
+                        <button class="btn-close float-end" data-bs-dismiss="alert" aria-hidden="true"></button>
+                        {{ session('status') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+        <div class="row">
             <div class="col-6">
-                <h1> Lista produktów </h1>
+                <h1> <i class="fa-solid fa-list"></i> Lista produktów </h1>
             </div>
 
             <div class="col-6">
                 <a class="float-end" href="{{ route('products.create') }}">
-                    <button type="button" class="btn btn-outline-dark border-1">{{ __('Dodaj')  }}</button>
+                    <button type="button" class="btn btn-outline-dark border-1"> <i class="fa-regular fa-plus"></i> {{ __('Dodaj')  }}</button>
                 </a>
             </div>
 
@@ -41,15 +50,15 @@
                         <td>
 
                             <a href="{{route('products.show',  $product->id)}}">
-                                <button class="btn btn-primary btn-sm">I</button>
+                                <button class="btn btn-primary btn-sm"><i class="fa-regular fa-eye"></i></button>
                             </a>
 
                             <a href="{{route('products.edit',  $product->id)}}">
-                                <button class="btn btn-success btn-sm">E</button>
+                                <button class="btn btn-success btn-sm"><i class="fa-regular fa-pen-to-square"></i></button>
                             </a>
 
                             <button class="btn btn-danger btn-sm delete" data-id="{{ $product->id }}">
-                                X
+                                <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </td>
                     </tr>

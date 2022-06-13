@@ -9,6 +9,8 @@ use http\Env\Response;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\DocBlock\Tags\Link;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class WelcomeController extends Controller
@@ -40,7 +42,7 @@ class WelcomeController extends Controller
 
 
             return response()->json([
-                'data' => $query->get()
+                'data' => $query->get(),
             ]);
         }
 
@@ -49,7 +51,8 @@ class WelcomeController extends Controller
         return view("welcome", [
             'products' => $query->paginate(6),
             'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
-            'defaultImage' => 'https://via.placeholder.com/240x240/5fa9f8/efefef'
+            'defaultImage' => 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
+            'isGuest' => Auth::guest()
         ]);
     }
 }

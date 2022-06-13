@@ -4,15 +4,26 @@
     <div class="container">
 
         <div class="row justify-content-center">
-            <div class="row justify-content-center w-50">
+            <div class="row justify-content-center w-75">
+
+                <div class="row">
+                    <div class="col-12">
+                        @if(session('status'))
+                            <div class="alert alert-success">
+                                <button class="btn-close float-end" data-bs-dismiss="alert" aria-hidden="true"></button>
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
 
                 <div class="col-6">
-                    <h1> Lista kategorii </h1>
+                    <h1><i class="fa-solid fa-list"> </i>  Lista kategorii </h1>
                 </div>
 
                 <div class="col-6">
                     <a class="float-end" href="{{ route('categories.create') }}">
-                        <button type="button" class="btn btn-outline-dark border-1">{{ __('Dodaj')  }}</button>
+                        <button type="button" class="btn btn-outline-dark border-1"><i class="fa-regular fa-plus"></i> {{ __('Dodaj')  }}</button>
                     </a>
                 </div>
 
@@ -33,7 +44,7 @@
                             <td>{{$category->name}}</td>
                             <td class="col-md-1">
                                 <button class="btn btn-danger btn-sm deleteCategory" data-id="{{ $category->id }}">
-                                    X
+                                    <i class="fa-regular fa-trash-can"></i>
                                 </button>
                             </td>
                         </tr>

@@ -8,6 +8,7 @@ use App\Models\ProductCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -50,16 +51,16 @@ class ProductController extends Controller
             $product->image_path = $request->file('image')->store('products');
         }
         $product->save();
-        return redirect(route('products.index'));
+        return redirect(route('products.index'))->with('status', 'Produkt dodany do bazy!');
     }
 
     /**
      * Display the specified resource.
      *
      * @param Product  $product
-     * @return view
+     * @return View
      */
-    public function show(Product $product): view
+    public function show(Product $product): View
     {
         return view("products.show", [
             'product' => $product
@@ -95,7 +96,7 @@ class ProductController extends Controller
             $product->image_path = $request->file('image')->store('products');
         }
         $product->save();
-        return redirect(route('products.index'));
+        return redirect(route('products.index'))->with('status', 'Produkt zaktualizowany w bazie!');
     }
 
     /**
@@ -108,6 +109,7 @@ class ProductController extends Controller
     {
         try {
             $product -> delete();
+            Session::flash('status', 'Produkt został usunięty z bazy!');
             return response()->json([
                 'status' => 'success'
             ]);

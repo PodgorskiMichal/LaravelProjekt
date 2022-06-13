@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\Address;
+use App\Models\ProductCategory;
 use App\Models\User;
 
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Mockery\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -50,35 +57,68 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return View
      */
-    public function show($id)
+    public function show(User $user): View
     {
-        //
+
+
+        if(Auth::user()->role == 'user')
+        {
+            return view("users.show", [
+                'user' => $user
+            ]);
+        } else return view("users.show2", [
+            'user' => $user
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User $user
+     * @return View
      */
-    public function edit($id)
+    public function edit(User $user): View
     {
-        //
+        if(Auth::user()->role == 'user')
+        {
+            return view("users.edit2", [
+                'user' => $user,
+            ]);
+        }
+        else return view("users.edit", [
+                'user' => $user,
+            ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  UpdateUserRequest  $request
+     * @param  User $user
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        //
+
+        $user->fill($request->all());
+        $user->save();
+
+        $addressValidated = $request -> validated()['address'];
+        if($user->hasAddress()){
+            $address = $user->address;
+            $address->fill($addressValidated);
+        }else {
+            $address = new Address($addressValidated);
+        }
+        $user->address()->save($address);
+        if(Auth::user()->role == 'user')
+        return redirect(route('users.show', $user->id))->with('status', 'Dane użytkownika zostały zaktualizowany!');
+        else
+            return redirect(route('users.index'))->with('status', 'Adres został zaktualizowany!');
     }
 
     /**
@@ -91,6 +131,7 @@ class UserController extends Controller
     {
         try {
            $user -> delete();
+            Session::flash('status', 'Użytkownik został usunięty z bazy!');
             return response()->json([
                 'status' => 'success'
             ]);

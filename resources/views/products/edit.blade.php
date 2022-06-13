@@ -8,7 +8,7 @@
                 <div  class="padding container d-flex justify-content-center">
                     <div class="col-md-10 col-md-offset-1">
 
-                        <h2 class="text-center m-4"> {{ __('Etycja produktu') }} </h2>
+                        <h2 class="text-center m-4"></i> {{ __('Etycja produktu') }} </h2>
                         <hr>
 
                 <div class="card-body">
@@ -118,7 +118,7 @@
                         <div class="row m-5">
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-lg btn-outline-dark">
-                                    {{ __('Zapisz') }}
+                                    <i class="fa-solid fa-floppy-disk"></i>  {{ __('Zapisz') }}
                                 </button>
                             </div>
                         </div>
