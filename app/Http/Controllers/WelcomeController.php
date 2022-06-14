@@ -52,7 +52,10 @@ class WelcomeController extends Controller
             'products' => $query->paginate(6),
             'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
             'defaultImage' => 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
-            'isGuest' => Auth::guest()
+            'isGuest' => Auth::guest(),
+            'isUser' => Auth::user(),
         ]);
+
+
     }
 }

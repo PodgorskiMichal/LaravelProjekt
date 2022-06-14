@@ -67,7 +67,7 @@
                                                  src="{{ asset('storage/'.$product->image_path) }}" alt="Zdjęcie produktu">
                                         @endif
                                     </div>
-
+                                    <button onclick="history.back()" class="btn btn-lg btn-block btn-primary mt-3 w-100"> <i class="fa-solid fa-rotate-left"></i> COFNIJ </button>
                             </div>
 
                     </div>

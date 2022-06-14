@@ -22,6 +22,8 @@
         <div class="container-fluid">
             <h2 class="text"><i class="fas fa-shopping-basket"></i> Koszyk ({{$cart->getItems()->count()}}) </h2>
 
+            <form action="{{ route('orders.store') }}" method="POST" id="order-form">
+
             <div class="row">
 
                 <aside class="col-lg-9">
@@ -63,7 +65,7 @@
                                                 <div class="price-total-wrap"> <var class="price-total">{{ $item->getSum() }}</var></div>
                                             </td>
                                             <td class="text-right d-none d-md-block">
-                                                <button class="btn btn-danger btn-sm deleteCart" data-id="{{ $item->getProductId() }}">
+                                                <button type="button" class="btn btn-danger btn-sm deleteCart" data-id="{{ $item->getProductId() }}">
                                                     <i class="fa-regular fa-trash-can"></i>
                                                 </button>
                                             </td>
@@ -82,13 +84,17 @@
                                 <div><b>Suma zamówienia:</b> {{ $cart->getSum() }} zł</div>
                             </dl>
                             <hr>
-                            <a href="#" class="btn btn-outline-success w-100" data-abc="true"> Złóż zamówienie </a>
-                            <a href="{{ url('/') }}" class="btn btn-outline-primary w-100 mt-2" data-abc="true">Kontynuuj zakupy</a>
+                            <button type="submit" class="btn btn-outline-success w-100" {{!$cart->hasItems() ? 'disabled' : ''}}> Złóż zamówienie </button>
+                            <a href="{{ url('/') }}" class="btn btn-outline-primary w-100 mt-2" >Kontynuuj zakupy</a>
                         </div>
                     </div>
                 </aside>
 
             </div>
+
+            </form>
+
+
         </div>
 
     </div>

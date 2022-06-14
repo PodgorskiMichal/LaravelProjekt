@@ -63,6 +63,9 @@
                             <a class="nav-link big isDisable" role="button" href="{{route('cart.index')}}">
                                 <i class="fas fa-shopping-basket"></i> Koszyk
                             </a>
+                            <a class="nav-link big isDisable" role="button" href="{{route('orders.index')}}">
+                                <i class="fas fa-shopping-basket"></i> Zamówienia
+                            </a>
                         @endauth
 
                         @guest
@@ -92,14 +95,16 @@
 
                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                         <li>
-                                            <a class="dropdown-item" href="{{route('users.show',  Auth::user()->id)}}">
-                                                <i class="fas fa-user"></i> Profil użytkownika
-                                            </a>
+
 
                                             @if(Auth::user()->role == 'user')
-                                            <a class="dropdown-item" href="{{route('users.edit',  Auth::user()->id)}}">
-                                                <i class="fa-solid fa-pen-to-square"></i> Edytuj profil
-                                            </a>
+                                                <a class="dropdown-item" href="{{route('users.show',  Auth::user()->id)}}">
+                                                    <i class="fas fa-user"></i> Profil użytkownika
+                                                </a>
+
+                                                <a class="dropdown-item" href="{{route('users.edit',  Auth::user()->id)}}">
+                                                    <i class="fa-solid fa-pen-to-square"></i> Edytuj profil
+                                                </a>
                                             @endif
 
                                             <a class="dropdown-item " href="{{ route('logout') }}"

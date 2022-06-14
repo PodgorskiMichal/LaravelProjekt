@@ -1,7 +1,7 @@
 $(function () {
 
-    cartButoon()
-
+        cartButoon()
+        info()
 
         $('a#filter').click(function() {
         const form = $('form.sidebar-filter').serialize();
@@ -16,6 +16,7 @@ $(function () {
                  $.each(response.data, function (index, product) {
 
                      cartButoon()
+                     info()
 
                      const html = '<div class="col-6 col-md-6 col-lg-4 mb-3">\n' +
                          '              <div class="card h-100 border-1">\n' +
@@ -24,14 +25,17 @@ $(function () {
                          '                  </div>\n' +
                          '                  <div class="card-body text-center">\n' +
                          '                      <h4 class="card-title">\n' +
-                                                    product.name +
+                                                        product.name +
                          '                      </h4>\n' +
                          '                      <h5 class="card-price small">\n' +
                          '                          <i>PLN ' + product.price + '</i>\n' +
                          '                      </h5>\n' +
-                                 '                <button class="btn btn-outline-dark addToCartButton"' + getDisabled() + ' data-id="' + product.id + '">' +
-                                 '                   <i class="fas fa-cart-plus"></i> Dodaj do koszyka' +
-                                 '                </button>' +
+                         '                      <button class="btn btn-outline-primary mt-1 w-100 info"' + ' href=" ' + goToShow +  product.id + ' " ' + ' data-id="' + product.id + ' ">' +
+                         '                          <i class="fa-solid fa-circle-info"></i> Informacje' +
+                         '                      </button>' +
+                         '                      <button class="btn btn-outline-success mt-1 w-100 addToCartButton"' + getDisabled() + ' data-id="' + product.id + '">' +
+                         '                          <i class="fas fa-cart-plus"></i> Dodaj do koszyka' +
+                         '                      </button>' +
                          '                  </div>\n' +
                          '              </div>\n' +
                          '         </div>'
@@ -66,6 +70,25 @@ $(function () {
             });
         });
     }
+function info() {
+    $('button.info').click(function (event) {
+        event.preventDefault();
+        $.ajax({
+            method: "GET",
+            url: "/products/" + $(this).attr("data-id")
+        }).done(function () {
+            const id = event.currentTarget.getAttribute("data-id")
+            console.log(id)
+            if (isUser) {
+                window.location = "/products/" + id
+            }
+
+        }).fail(function () {
+            Swal.fire('Oops...', 'Wystąpił błąd', 'error');
+        });
+    });
+}
+
     function getImage(product) {
 
         if (!!product.image_path) {
@@ -75,7 +98,7 @@ $(function () {
     }
 
     function getDisabled() {
-        if (isGuest) {
+        if (!isUser) {
             return ' disabled';
         }
         return '';

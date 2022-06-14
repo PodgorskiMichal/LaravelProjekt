@@ -58,6 +58,11 @@
                                                 <i class="fa-regular fa-pen-to-square"></i>  {{ __('Edytuj') }}
                                             </button>
                                         </a>
+                                        <a href="{{route('users.index')}}">
+                                            <button type="submit" class="btn btn-lg btn-outline-dark edit">
+                                                <i class="fa-solid fa-arrow-rotate-left"></i>  {{ __('Wróć') }}
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

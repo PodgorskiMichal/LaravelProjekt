@@ -15,30 +15,44 @@
                                 <div class="card h-100 border-1">
                                     <div class="card-img-top">
                                         @if(!is_null($product->image_path))
-                                            <img style="height: 250px" src="{{ asset('storage/' . $product->image_path) }}" class="img-fluid mx-auto d-block" alt="Zdjęcie produktu">
+                                                <img style="height: 250px" src="{{ asset('storage/' . $product->image_path) }}" class="img-fluid mx-auto d-block" alt="Zdjęcie produktu">
                                         @else
-                                            <img style="height: 250px" src="{{ $defaultImage }}" class="img-fluid mx-auto d-block" alt="Zdjęcie produktu">
+                                                <img style="height: 250px" src="{{ $defaultImage }}" class="img-fluid mx-auto d-block" alt="Zdjęcie produktu">
                                         @endif
                                     </div>
                                     <div class="card-body text-center">
                                         <h4 class="card-title">
-                                            {{--                                            <a href="product.html" class=" font-weight-bold text-dark text-uppercase small">--}}
+
                                             {{ $product->name }}
-                                            {{--                                            </a>--}}
+
                                         </h4>
                                         <h5 class="card-price small">
                                             <i>PLN {{ $product->price }}</i>
                                         </h5>
 
-                                        <button class="btn btn-outline-dark addToCartButton" data-id="{{ $product->id }}" @guest disabled @endguest>
-                                            <i class="fa-solid fa-cart-plus"></i></i> Dodaj do koszyka
+                                        <button class="btn btn-outline-primary mt-1 w-100 info"  href="{{route('products.show',  $product->id)}}" data-id="{{ $product->id }}" @guest disabled @endguest>
+                                            <i class="fa-solid fa-circle-info"></i> Informacje
+                                        </button>
+                                        <button class="btn btn-outline-success mt-1 w-100 addToCartButton" data-id="{{ $product->id }}" @guest disabled @endguest>
+                                            <i class="fa-solid fa-cart-plus"></i> Dodaj do koszyka
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-
+                            <div class="row sorting mb-5 mt-5">
+                                <div class="col-12">
+                                    <div  id="pagination" class="btn-group float-md-end ml-3 paginationClass">
+                                        {{ $products->links() }}
+                                    </div>
+                                    <div class="btn-group float-md-start ml-3">
+                                        {{__('Wyświetlono ')}} {{ $products->firstItem() }} - {{ $products->lastItem() }} {{__('z')}} {{ $products->total() }} {{__('produktów')}}
+                                    </div>
+                                </div>
+                            </div>
                     </div>
+
+
                 </div>
             </div>
 
@@ -77,7 +91,9 @@
     const defaultImage = '{{ $defaultImage }}';
     const addToCart = '{{ url('cart') }}/';
     const goToCart = '{{ url('cart') }}';
+    const goToShow = '{{ url('products')}}/';
     const isGuest = '{{ $isGuest }}';
+    const isUser = '{{ $isUser }}';
 @endsection
 
 @section('js-files')

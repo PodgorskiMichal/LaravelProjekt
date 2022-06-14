@@ -8,6 +8,7 @@ use App\Models\ProductCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -62,9 +63,11 @@ class ProductController extends Controller
      */
     public function show(Product $product): View
     {
-        return view("products.show", [
-            'product' => $product
-        ]);
+
+    return view("products.show", [
+        'product' => $product,
+    ]);
+
     }
 
     /**

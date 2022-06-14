@@ -33,6 +33,18 @@ class Cart
         });
     }
 
+    public function getQuantity(): int
+    {
+        return $this->items->sum(function ($item) {
+           return $item->getQuantity();
+        });
+    }
+
+    public function hasItems(): bool
+    {
+        return $this->items->isNotEmpty();
+    }
+
     public function addItem(Product $product): Cart
     {
         $items = $this->items;
