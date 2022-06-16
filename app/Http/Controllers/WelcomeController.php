@@ -23,6 +23,13 @@ class WelcomeController extends Controller
      */
     public function index(Request $request): View|JsonResponse
     {
+        $search3 = request()->query('search3');
+
+        if($search3){
+            $products = Product::where('name', 'LIKE', "%{$search3}%")->paginate(4);
+        } else {
+            $products = Product::paginate(4);
+        }
 
         $filters = $request -> query('filter');
         $query = Product::query();
@@ -39,23 +46,19 @@ class WelcomeController extends Controller
             if (!is_null($filters['price_max'])) {
                 $query = $query->where('price', '<=', $filters['price_max']);
             }
-
-
             return response()->json([
                 'data' => $query->get(),
             ]);
         }
 
 
-
         return view("welcome", [
-            'products' => $query->paginate(6),
+            'products' => $products,
             'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
             'defaultImage' => 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
             'isGuest' => Auth::guest(),
             'isUser' => Auth::user(),
         ]);
-
 
     }
 }

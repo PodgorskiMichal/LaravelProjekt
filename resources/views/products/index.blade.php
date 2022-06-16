@@ -26,6 +26,18 @@
 
         </div>
 
+        <div class="row">
+            <div class="col-12">
+                <form class="input-group" action="{{route('products.index')}}" method="GET">
+                    <input type="text" class="form-control" placeholder="search" name="search1"/>
+
+                    <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </span>
+                </form>
+            </div>
+        </div>
+
             <table class="table table-striped table-hover">
             <thead>
             <tr>
@@ -39,7 +51,7 @@
             </tr>
             </thead>
             <tbody>
-                @foreach($products as $product)
+                @forelse($products as $product)
                     <tr>
                         <th scope="row">{{$product->id}}</th>
                         <td>{{$product->name}}</td>
@@ -62,7 +74,11 @@
                             </button>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <p class="text-center">
+                        Nie znaleziono wyników dla: <strong>{{ request()->query('search1') }}</strong>
+                    </p>
+                @endforelse
             </tbody>
             </table>
 
@@ -73,7 +89,7 @@
 
         <div class="col-5">
             <div class="btn-group float-end"
-                {{ $products->links() }}  {{-- Paginacja przełączanie stron --}}
+            {{ $products->appends(['search1' => request() ->query('search1')])->links() }}  {{-- Paginacja przełączanie stron --}}
             </div>
         </div>
     </div>

@@ -7,9 +7,21 @@
             <div class="col-md-8 order-md-2 col-lg-9">
                 <div class="container-fluid">
 
-                    <div class="row   mb-5"></div>
+                    <div class="row mb-5"></div>
 
                     <div class="row" id="products-wrapper">
+
+                            <div class="col-12 mb-2">
+                                <form class="input-group" action="{{'/'}}" method="GET">
+                                   <div class="input-group">
+                                    <input type="text" class="form-control rounded" placeholder="search" name="search3" id="search3"/>
+
+                                     <button type="submit" class="btn btn-outline-primary">search</button>
+
+                                   </div>
+                                </form>
+                            </div>
+
                         @foreach($products as $product)
                             <div class="col-6 col-md-6 col-lg-4 mb-3">
                                 <div class="card h-100 border-1">
@@ -33,6 +45,7 @@
                                         <button class="btn btn-outline-primary mt-1 w-100 info"  href="{{route('products.show',  $product->id)}}" data-id="{{ $product->id }}" @guest disabled @endguest>
                                             <i class="fa-solid fa-circle-info"></i> Informacje
                                         </button>
+
                                         <button class="btn btn-outline-success mt-1 w-100 addToCartButton" data-id="{{ $product->id }}" @guest disabled @endguest>
                                             <i class="fa-solid fa-cart-plus"></i> Dodaj do koszyka
                                         </button>
@@ -40,21 +53,24 @@
                                 </div>
                             </div>
                         @endforeach
-                            <div class="row sorting mb-5 mt-5">
-                                <div class="col-12">
-                                    <div  id="pagination" class="btn-group float-md-end ml-3 paginationClass">
-                                        {{ $products->links() }}
-                                    </div>
-                                    <div class="btn-group float-md-start ml-3">
-                                        {{__('Wyświetlono ')}} {{ $products->firstItem() }} - {{ $products->lastItem() }} {{__('z')}} {{ $products->total() }} {{__('produktów')}}
-                                    </div>
-                                </div>
-                            </div>
+
                     </div>
+                    <div class="row sorting mb-5 mt-5">
+                        <div class="col-12">
+                            <div  id="pagination" class="btn-group float-md-end ml-3 paginationClass">
+                                {{ $products->appends(['search3' => request() ->query('search3')])->links() }}
+                            </div>
+                            <div class="btn-group float-md-start ml-3">
+                                {{__('Wyświetlono ')}} {{ $products->firstItem() }} - {{ $products->lastItem() }} {{__('z')}} {{ $products->total() }} {{__('produktów')}}
+                            </div>
+                        </div>
+                    </div>
+
 
 
                 </div>
             </div>
+
 
             <form id="sidebar-filter" class="col-md-4 order-md-1 col-lg-3 sidebar-filter">
                 <h3 class="mt-0 mb-5">Produkty <span class="text-primary">{{ $products->total() }}</span></h3>

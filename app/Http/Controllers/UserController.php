@@ -28,8 +28,17 @@ class UserController extends Controller
      */
     public function index(): View|Factory|Application
     {
+
+        $search = request()->query('search');
+        if($search){
+            $users = User::where('email', 'LIKE', "%{$search}%")->orWhere('name', 'LIKE', "%{$search}%")
+                ->orWhere('surname', 'LIKE', "%{$search}%")->paginate(2);
+        } else {
+            $users = User::paginate(10);
+        }
+
         return view('users.index', [
-            'users' => User::paginate(10)
+            'users' => $users
         ]);
     }
 

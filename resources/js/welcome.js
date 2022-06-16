@@ -30,7 +30,7 @@ $(function () {
                          '                      <h5 class="card-price small">\n' +
                          '                          <i>PLN ' + product.price + '</i>\n' +
                          '                      </h5>\n' +
-                         '                      <button class="btn btn-outline-primary mt-1 w-100 info"' + ' href=" ' + goToShow +  product.id + ' " ' + ' data-id="' + product.id + ' ">' +
+                         '                      <button class="btn btn-outline-primary mt-1 w-100 info"' + getDisabled() + ' href=" ' + goToShow +  product.id + ' " ' + ' data-id="' + product.id + ' ">' +
                          '                          <i class="fa-solid fa-circle-info"></i> Informacje' +
                          '                      </button>' +
                          '                      <button class="btn btn-outline-success mt-1 w-100 addToCartButton"' + getDisabled() + ' data-id="' + product.id + '">' +
@@ -38,11 +38,15 @@ $(function () {
                          '                      </button>' +
                          '                  </div>\n' +
                          '              </div>\n' +
-                         '         </div>'
+                         '         </div> '
                      $('div#products-wrapper').append(html);
+
                  });
             })
-    });
+        });
+
+
+
 
     function cartButoon() {
         $('button.addToCartButton').click(function (event) {
