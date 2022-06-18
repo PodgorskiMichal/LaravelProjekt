@@ -56,7 +56,6 @@
 
                                             <td>
                                                 <div class="quantity-wrap"> {{ $item->getQuantity() }}</div>
-
                                             </td>
                                             <td>
                                                 <div class="price-wrap"> <var class="price">{{ $item->getPrice() }}</var></div>

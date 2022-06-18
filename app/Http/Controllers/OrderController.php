@@ -20,9 +20,6 @@ class OrderController extends Controller
      */
     public function index(): View
     {
-
-
-
         if(Auth::user()->role == 'user')
         {
             return view('orders.indexUser', [
@@ -41,6 +38,9 @@ class OrderController extends Controller
     public function store(): RedirectResponse
     {
         $cart = Session::get('cart', new Cart());
+
+
+
         if($cart->hasItems()){
             $order = new Order();
             $order->quantity = $cart->getQuantity();
@@ -48,11 +48,26 @@ class OrderController extends Controller
             $order->user_id = Auth::id();
             $order->save();
 
-            $productIds = $cart->getItems()->map(function ($item){
-                return ['product_id' => $item->getProductId()];
-            });
-            $order->products()->attach($productIds);
 
+
+
+            $productIds = $cart->getItems()->map(function ($item){
+                return ['product_id' => $item->getProductId()]+['qty' => $item->getQuantity()];
+            });
+
+            $order->products()->attach($productIds);
+//
+//            dd($cart->getItems()->map(function ($item){
+//                return ['qti' => $item->getQuantity()];
+//            }));
+
+
+//            $qty = $cart->getItems()->map(function ($item){
+//                return ['qty' => $item->getQuantity()];
+//            });
+            //$order->products()->attach($qty);attach($qty);
+            //dd($qty);
+            //$order->products()->attach($qty);
 
             Session::put('cart', new Cart());
             return redirect(route('orders.index'))->with('status', 'Zamówienie przyjęte do realizacji');

@@ -26,21 +26,23 @@
                 <th scope="col">Ilość</th>
                 <th scope="col">Cena</th>
                 <th scope="col">Produkty</th>
+                <th scope="col">Data zamówienia</th>
             </tr>
             </thead>
             <tbody>
                 @foreach($orders as $order)
                     <tr>
-                        <th scope="row">{{$order->id}}</th>
-                        <th scope="row">{{$order->quantity}}</th>
-                        <th scope="row">{{$order->price}} zł</th>
-                        <th scope="row">
+                        <td scope="row">{{$order->id}}</td>
+                        <td scope="row">{{$order->quantity}}</td>
+                        <td scope="row">{{$order->price}} zł</td>
+                        <td scope="row">
                         @foreach($order->products as $product)
-                            <ul>
-                                <li>{{$product->name}} - {{$product->description}}</li>
-                            </ul>
+                            <div class="ms-2 me-auto">
+                                <div>[{{$product->pivot->qty }}] x {{ $product->name}}</div>
+                            </div>
                         @endforeach
-                        </th>
+                        </td>
+                        <td scope="row"> {{$product->created_at->format('Y-m-d')  }} </td>
 
                     </tr>
                 @endforeach

@@ -74,6 +74,7 @@ $(function () {
             });
         });
     }
+
 function info() {
     $('button.info').click(function (event) {
         event.preventDefault();
