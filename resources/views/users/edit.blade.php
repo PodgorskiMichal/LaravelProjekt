@@ -16,7 +16,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="city" class="col-md-4 col-form-label text-md-right">Miasto z</label>
+                            <label for="city" class="col-md-4 col-form-label text-md-right">Miasto</label>
 
                             <div class="col-md-6">
                                 <input id="city" type="text" maxlength="255" class="form-control @error('city') is-invalid @enderror" name="address[city]" value="@if($user->hasAddress()){{ $user->address->city }}@endif" required autocomplete="city" autofocus>

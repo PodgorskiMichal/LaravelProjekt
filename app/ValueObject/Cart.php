@@ -48,6 +48,7 @@ class Cart
     public function addItem(Product $product): Cart
     {
         $items = $this->items;
+
         $item = $items->first(function ($item) use ($product){
             return $product->id == $item->getProductId();
         });

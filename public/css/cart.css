@@ -20,3 +20,6 @@ body{background-color: #eeeeee;font-family: 'Open Sans',serif;font-size: 14px}
 .btn-light:hover{color: #ffffff;background-color: #F44336;border-color: #F44336}
 .btn-apply{font-size: 11px}
 
+
+.checkbox-filter { border:2px solid #ccc; width:auto; height: 100px; overflow-y: scroll;}
+

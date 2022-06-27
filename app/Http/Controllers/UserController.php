@@ -31,8 +31,11 @@ class UserController extends Controller
 
         $search = request()->query('search');
         if($search){
-            $users = User::where('email', 'LIKE', "%{$search}%")->orWhere('name', 'LIKE', "%{$search}%")
-                ->orWhere('surname', 'LIKE', "%{$search}%")->paginate(2);
+            $users = User::where('email', 'LIKE', "%{$search}%")
+                ->orWhere('name', 'LIKE', "%{$search}%")
+                ->orWhere('surname', 'LIKE', "%{$search}%")
+                ->orWhere('phone_number', 'LIKE', "%{$search}%")
+                ->paginate(10);
         } else {
             $users = User::paginate(10);
         }
@@ -73,7 +76,7 @@ class UserController extends Controller
     {
 
 
-        if(Auth::user()->role == 'user')
+        if((Auth::user()-> role == 'user')&&(Auth::user() -> id))
         {
             return view("users.show", [
                 'user' => $user

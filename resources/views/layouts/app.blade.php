@@ -60,12 +60,21 @@
 
 
                         @auth
-                            <a class="nav-link big isDisable" role="button" href="{{route('cart.index')}}">
-                                <i class="fas fa-shopping-basket"></i> Koszyk
-                            </a>
-                            <a class="nav-link big isDisable" role="button" href="{{route('orders.index')}}">
-                                <i class="fas fa-shopping-basket"></i> Zamówienia
-                            </a>
+                            @if(Auth::user()->role == 'user')
+                                <a class="nav-link big isDisable" role="button" href="{{route('cart.index')}}">
+                                    <i class="fas fa-shopping-basket"></i> Koszyk
+                                </a>
+                            @endif
+
+                            @if(Auth::user()->role == 'user')
+                                <a class="nav-link big isDisable" role="button" href="{{route('orders.index')}}">
+                                    <i class="fa-solid fa-clipboard-list"></i> Moje zamówienia
+                                </a>
+                            @elseif(Auth::user()->role == 'admin')
+                                <a class="nav-link big isDisable" role="button" href="{{route('orders.index')}}">
+                                    <i class="fa-solid fa-clipboard-list"></i> Lista zamówień
+                                </a>
+                            @endif
                         @endauth
 
                         @guest

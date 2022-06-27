@@ -14,6 +14,7 @@
                         <div class="col-md-10 col-md-offset-1">
 
                             <h2 class="text-center m-4"> Dane użytkownika </h2>
+                            <h2 class="text-center m-4"> {{ Auth::user() -> id }} </h2>
                             <hr>
 
                             <div class="card-body">
@@ -51,10 +52,7 @@
                                     </div>
                                 </div>
 
-
                             </div>
-
-
 
                             <h2 class="text-center m-4"> Adres użytkownika </h2>
                             <hr>

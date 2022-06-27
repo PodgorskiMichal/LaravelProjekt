@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/welcome.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .postCss('resources/css/cart.css', 'public/css')
+    .postCss('resources/css/scroll.css', 'public/css')
     .sourceMaps();
 
 mix.browserSync('projekt.test')

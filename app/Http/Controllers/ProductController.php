@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
+use App\Models\ProductBrand;
 use App\Models\ProductCategory;
+use App\Models\ProductPowered;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,20 +21,29 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @param Request $request
+     * @return View|JsonResponse
      */
-    public function index(): view
+    public function index(Request $request): View|JsonResponse
     {
 
         $search1 = request()->query('search1');
         if($search1){
-            $products = Product::where('name', 'LIKE', "%{$search1}%")->paginate(2);
+            $products = Product::where('name', 'LIKE', "%{$search1}%")
+                ->orWhere('description', 'LIKE', "%{$search1}%")
+                ->orWhereHas('brand', function (Builder $query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search1 . '%');})
+                ->orWhereHas('category', function (Builder $query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search1 . '%');})
+                ->orWhereHas('powered', function (Builder $query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search1 . '%');})
+                ->paginate(10);
         } else {
             $products = Product::paginate(10);
         }
 
         return view('products.index', [
-            'products' => $products
+            'products' => $products,
         ]);
     }
 
@@ -43,7 +55,9 @@ class ProductController extends Controller
     public function create(): view
     {
         return view("products.create", [
-            'categories' => ProductCategory::all()
+            'powereds' => ProductPowered::all(),
+            'categories' => ProductCategory::all(),
+            'brands' => ProductBrand::all()
         ]);
     }
 
@@ -72,7 +86,7 @@ class ProductController extends Controller
     public function show(Product $product): View
     {
 
-    return view("products.show", [
+    return view("products.showDetail", [
         'product' => $product,
     ]);
 
@@ -88,7 +102,9 @@ class ProductController extends Controller
     {
         return view("products.edit", [
             'product' => $product,
-            'categories' => ProductCategory::all()
+            'categories' => ProductCategory::all(),
+            'powereds' => ProductPowered::all(),
+            'brands' => ProductBrand::all()
         ]);
     }
 

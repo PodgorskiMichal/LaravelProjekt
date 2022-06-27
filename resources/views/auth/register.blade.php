@@ -15,6 +15,33 @@
 
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
+
+                                        <div class="form-group mb-3">
+                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required autocomplete="email">
+
+                                            @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="{{ __('Hasło') }}" required autocomplete="new-password">
+
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ __('Potwierdź hasło') }}" required autocomplete="new-password">
+                                        </div>
+
+                                        <hr>
+
                                         <div class="form-group mb-3">
                                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="{{ __('Imię') }}" value="{{ old('name') }}" required autocomplete="name" autofocus>
                                             @error('name')
@@ -42,30 +69,6 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
-
-                                        <div class="form-group mb-3">
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required autocomplete="email">
-
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group mb-3">
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="{{ __('Hasło') }}" required autocomplete="new-password">
-
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group mb-3">
-                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ __('Potwierdź hasło') }}" required autocomplete="new-password">
                                         </div>
 
                                         <div class="row m-5">

@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 255)->unique();
-            $table->timestamps();
-        });
         Schema::table('products', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id')->after('price');
-            $table->foreign('category_id')->references('id')->on('product_categories')->onDelete('cascade');
+            $table->integer('power')->after('description')->nullable();
+            $table->decimal('battery_voltage')->after('power')->nullable();
+            $table->integer('maximum_rotational_speed')->after('battery_voltage')->nullable();
         });
     }
 
@@ -32,9 +28,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign('products_category_id_foreign');
-            $table->dropColumn('category_id');
+            $table->dropColumn('power');
+            $table->dropColumn('battery_voltage');
+            $table->dropColumn('maximum_rotational_speed');
         });
-        Schema::dropIfExists('product_categories');
     }
 };

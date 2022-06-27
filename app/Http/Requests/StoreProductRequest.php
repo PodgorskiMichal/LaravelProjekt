@@ -26,10 +26,15 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|max:500',
             'description' => 'required|max:1500',
+            'power' => 'nullable|integer|min:0',
+            'battery_voltage' => 'nullable|numeric|between:0,999999.99',
+            'maximum_rotational_speed' => 'nullable|integer|min:0',
             'amount' => 'required|integer|min:0',
             'price' => 'required|numeric|between:0,999999.99',
             'image' => 'nullable|image|mimes:jpg,png',
-            'category_id' => 'nullable|integer|min:0'
+            'category_id' => 'required|integer|min:0',
+            'brand_id' => 'required|integer|min:0',
+            'powered_id' => 'required|integer|min:0',
         ];
     }
 }

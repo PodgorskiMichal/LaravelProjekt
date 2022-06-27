@@ -22,8 +22,8 @@
             <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col"># Users</th>
+                <th scope="col"># Nr. Zamówienia</th>
+                <th scope="col"># ID użytkownika</th>
                 <th scope="col">Ilość</th>
                 <th scope="col">Cena</th>
                 <th scope="col">Produkty</th>

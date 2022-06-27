@@ -31,9 +31,8 @@
                 <form class="input-group" action="{{route('products.index')}}" method="GET">
                     <input type="text" class="form-control" placeholder="search" name="search1"/>
 
-                    <span class="input-group-text border-0" id="search-addon">
-                    <i class="fas fa-search"></i>
-                </span>
+                    <button type="submit" class="btn btn-outline-primary search" id="search">search</button>
+
                 </form>
             </div>
         </div>
@@ -43,9 +42,14 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nazwa</th>
+                <th scope="col">Marka</th>
                 <th scope="col">Opis</th>
                 <th scope="col">Ilość</th>
                 <th scope="col">Cena</th>
+                <th scope="col">Zasilanie</th>
+                <th scope="col">[W]</th>
+                <th scope="col">[V]</th>
+                <th scope="col">[obr./min]</th>
                 <th scope="col">Kategoria</th>
                 <th scope="col">Akcje</th>
             </tr>
@@ -55,10 +59,20 @@
                     <tr>
                         <th scope="row">{{$product->id}}</th>
                         <td>{{$product->name}}</td>
-                        <td>{{$product->description}}</td>
+                        <td>@if($product->hasBrand()){{ $product->brand->name }}@endif</td>
+                        <td >
+                        <div class="scrollInTable">
+                            {{$product->description}}
+                        </div>
+                        </td>
                         <td>{{$product->amount}}</td>
                         <td>{{$product->price}}</td>
+                        <td>@if($product->hasPowered()){{ $product->powered->name }}@endif</td>
+                        <td>{{$product->power}}</td>
+                        <td>{{$product->battery_voltage}}</td>
+                        <td>{{$product->maximum_rotational_speed}}</td>
                         <td>@if($product->hasCategory()){{ $product->category->name }}@endif</td>
+
                         <td>
 
                             <a href="{{route('products.show',  $product->id)}}">
@@ -96,7 +110,9 @@
 
     </div>
 @endsection
-
+@section('css-files')
+    <link href="{{ asset('css/scroll.css') }}" rel="stylesheet">
+@endsection
 @section('javascript')
     const deleteURL = "{{ url('products') }}/";
 @endsection
